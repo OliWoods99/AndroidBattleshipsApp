@@ -50,7 +50,7 @@ open class StudentBattleshipGrid protected constructor(
      */
     private val guesses: MutableMatrix<GuessCell> = TODO("Initialise with a mutable matrix that has the values taken from the guesses constructor parameter")
 
-    /**
+     /**
      * Helper property to get the width of the game.
      */
     override val columns: Int get() = TODO("Get the width of the grid from another property such as opponent or guesses")

@@ -12,11 +12,11 @@ class StudentBattleshipTest : BattleshipTest() {
         rows: Int,
         ships: List<Ship>
     ): StudentBattleshipOpponent {
-        val studentShips = ships.map { ship ->
+        val studentShips = ships.map { ship: Ship -> StudentShip(ship.top, ship.left, ship.bottom, ship.right)
             TODO("create an instance of StudentShip that maps the given ship data")
         }
-
-        return TODO("Create an instance of StudentBattleshipOpponent with the dimensions and ships")
+        //DONE("Create an instance of StudentBattleshipOpponent with the dimensions and ships")
+        return StudentBattleshipOpponent(rows,columns,studentShips)
     }
 
     override fun createOpponent(
@@ -49,7 +49,6 @@ class StudentBattleshipTest : BattleshipTest() {
                 ?: createGrid(MutableBooleanMatrix(grid.columns, grid.rows), grid.opponent)
         }
 
-
-        return TODO("Create a new StudentBattleshipGame with the studentGrids as parameter")
+        return StudentBattleshipGame(studentGrids) //DONE("Create a new StudentBattleshipGame with the studentGrids as parameter")
     }
 }

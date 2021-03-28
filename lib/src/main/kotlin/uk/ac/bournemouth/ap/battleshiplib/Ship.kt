@@ -1,4 +1,4 @@
-package uk.ac.bournemouth.ap.battleshiplib
+ package uk.ac.bournemouth.ap.battleshiplib
 
 import uk.ac.bournemouth.ap.lib.matrix.IntMatrix
 import uk.ac.bournemouth.ap.lib.matrix.Matrix

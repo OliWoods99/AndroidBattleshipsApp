@@ -6,7 +6,7 @@ interface BattleshipGame {
 
     val grids: List<BattleshipGrid>
 
-
+    //NOTE: this listner replaced by one in battleship grid
     /**
      * Interface implemented by listeners to game change events.
      */
