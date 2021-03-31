@@ -12,8 +12,9 @@ class StudentBattleshipTest : BattleshipTest() {
         rows: Int,
         ships: List<Ship>
     ): StudentBattleshipOpponent {
-        val studentShips = ships.map { ship: Ship -> StudentShip(ship.top, ship.left, ship.bottom, ship.right)
-            TODO("create an instance of StudentShip that maps the given ship data")
+        val studentShips = ships.map {
+            ship -> StudentShip(ship.top, ship.left, ship.bottom, ship.right, columns, rows)
+            //done("create an instance of StudentShip that maps the given ship data")
         }
         //DONE("Create an instance of StudentBattleshipOpponent with the dimensions and ships")
         return StudentBattleshipOpponent(rows,columns,studentShips)
