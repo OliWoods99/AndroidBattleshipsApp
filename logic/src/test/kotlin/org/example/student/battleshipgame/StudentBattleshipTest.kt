@@ -27,8 +27,8 @@ class StudentBattleshipTest : BattleshipTest() {
         random: Random
     ): StudentBattleshipOpponent {
         // Note that the passing of random allows for repeatable testing
-        return TODO("Create an instance of StudentBattleshipOpponent for the given game size, " +
-                "target ship sizes and random generator")
+        //TODO("Create an instance of StudentBattleshipOpponent for the given game size, " + "target ship sizes and random generator")
+        return StudentBattleshipOpponent(rows,columns,shipSizes,random)
     }
 
     override fun createGrid(

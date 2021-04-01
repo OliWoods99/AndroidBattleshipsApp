@@ -11,7 +11,7 @@ interface Matrix<out T> : MatrixCommon, SparseMatrix<T> {
     override val indices: Iterable<Coordinate> get() = MatrixIndices(this)
     override fun copyOf(): Matrix<T>
 
-    override val validator get() = super<MatrixCommon>.validator
+    override val validator get() = super.validator
 }
 
 /**

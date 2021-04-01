@@ -8,20 +8,20 @@ open class StudentShip(override val top: Int, override val left: Int, override v
         /* TODO Make sure to check that the arguments are valid: left<=right, top<=bottom and the ship is only 1 wide */
         //check for inverted dimensions
         if (this.left > this.right || this.top > this.bottom){
-            print("invertted dimensions")
-            throw Exception("invalid ship")
+            throw Exception("invalid ship, inverted dimensions")
         }
         //check width
-        if(!(width == 1 || height == 1)){
-            println("ship wider than 1")
-            throw Exception("invalid ship")
+        else if(!(width == 1 || height == 1)){
+            throw Exception("invalid ship, too wide")
         }
         //check bounds
-        else if (top > rows || this.right > columns || this.bottom < 0 || this.left < 0){
-            println("out of bounds")
-        throw Exception("ship out of bounds")
+        else if (this.top > rows || this.right > columns || this.bottom < 0 || this.left < 0){
+            throw Exception("invalid ship, ship out of bounds")
         }
         //check for overlap?
+        else{
+            println("valid")
+        }
     }
     fun debug(){
         val colsAt = this.columnIndices
