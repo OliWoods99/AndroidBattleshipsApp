@@ -13,7 +13,7 @@ class StudentBattleshipTest : BattleshipTest() {
         ships: List<Ship>
     ): StudentBattleshipOpponent {
         val studentShips = ships.map {
-            ship -> StudentShip(ship.top, ship.left, ship.bottom, ship.right, columns, rows)
+            ship -> StudentShip(ship.top, ship.left, ship.bottom, ship.right)
             //done("create an instance of StudentShip that maps the given ship data")
         }
         //DONE("Create an instance of StudentBattleshipOpponent with the dimensions and ships")
@@ -27,7 +27,7 @@ class StudentBattleshipTest : BattleshipTest() {
         random: Random
     ): StudentBattleshipOpponent {
         // Note that the passing of random allows for repeatable testing
-        //TODO("Create an instance of StudentBattleshipOpponent for the given game size, " + "target ship sizes and random generator")
+        //done("Create an instance of StudentBattleshipOpponent for the given game size, " + "target ship sizes and random generator")
         return StudentBattleshipOpponent(rows,columns,shipSizes,random)
     }
 
