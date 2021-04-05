@@ -9,7 +9,7 @@ import uk.ac.bournemouth.ap.lib.matrix.MutableMatrix
 
 /**
  * This grid class describes the state of current guesses. It records which ships were sunk, where
- * shots were placed (with what results). It also records the [opponent](StudentBattleshipOpponent)
+ * shots were placed (with  what results). It also records the [opponent](StudentBattleshipOpponent)
  *
  * @constructor Constructor that represents the actual state, this is needed when saving/loading
  *   the state.
@@ -48,17 +48,17 @@ open class StudentBattleshipGrid protected constructor(
     /**
      * A matrix with all guesses made in the game
      */
-    private val guesses: MutableMatrix<GuessCell> = TODO("Initialise with a mutable matrix that has the values taken from the guesses constructor parameter")
+    private val guesses: MutableMatrix<GuessCell> = MutableMatrix(guesses)
 
      /**
      * Helper property to get the width of the game.
      */
-    override val columns: Int get() = TODO("Get the width of the grid from another property such as opponent or guesses")
+    override val columns: Int get() = opponent.columns
 
     /**
      * Helper property to get the height of the game.
      */
-    override val rows: Int get() = TODO("Get the height of the grid from another property such as opponent or guesses")
+    override val rows: Int get() = opponent.rows
 
     /*
      * Infrastructure to allow listening to game change events (and update the display
@@ -98,18 +98,58 @@ open class StudentBattleshipGrid protected constructor(
     /**
      * The get operator allows retrieving the guesses at a location. You probably want to just look
      * the value up from a property you create (of type `MutableMatrix<GuessCell>`)
+     * TODO("Look up the value from state")
      */
-    override operator fun get(column: Int, row: Int): GuessCell = TODO("Look up the value from state")
+    override operator fun get(column: Int, row: Int): GuessCell = guesses[column,row]
 
     /**
      * This method is core to the game as it implements the actual gameplay (after initial setup).
      */
     override fun shootAt(column: Int, row: Int): GuessResult {
-        TODO("Check that the coordinates are in range")
-        TODO("Check that the coordinate has not been tried already for this game")
-        TODO("Determine from the opponent which ship (or none) is at the location, the index matches the index in opponent.ships")
-        TODO("Update the grid state, remembering that if a ship is sunk, all its cells should be sunk")
-        TODO("Return the result of the action as a child of GuessResult")
-    }
+        var guessResult: GuessResult = GuessResult.MISS
+        var sunk: Boolean = false
+        var hitCounter: Int = 0
 
+        if(column > columns || row > rows){
+            throw Exception("coords out of range")
+        }
+        else{
+            if (guesses[column, row] == GuessCell.UNSET){
+                if (opponent.shipAt(column, row) == null){
+                    //Miss
+                    guesses[column, row] = GuessCell.MISS
+                    guessResult = GuessResult.MISS
+                }
+                else{
+                    //Hit
+                    val hitShip = opponent.shipAt(column, row)
+                    val hitShipIndex = hitShip!!.index
+                    val hitShipCoords = hitShip.ship.getCoords()
+
+                    guesses[column, row] = GuessCell.HIT(hitShipIndex)
+                    guessResult = GuessResult.HIT(hitShipIndex)
+
+                    //check if ship has sunk
+                    for (coord in hitShipCoords){
+                        if(guesses[coord.x, coord.y] == GuessCell.HIT(hitShipIndex)){
+                            hitCounter += 1
+                        }
+                    }
+                    //if sunk set all cells to SUNK
+                    if (hitCounter == hitShip.ship.size){
+                        for (coord in hitShipCoords){
+                            guesses[coord.x, coord.y] = GuessCell.SUNK(hitShipIndex)
+                        }
+                        this.shipsSunk[hitShipIndex] = true
+                        guessResult = GuessResult.SUNK(hitShipIndex)
+                    }
+                }
+            }
+            else{
+                throw Exception("cell already guessed")
+            }
+        }
+        fireOnGridChangeEvent(column, row)
+        return guessResult
+    }
 }

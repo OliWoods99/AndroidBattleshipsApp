@@ -13,7 +13,7 @@ import kotlin.random.Random
  * but actually here.
  *
  * done Create a constructor that creates a game given dimensions and a list of placed ships
- * TODO Create a way to generate a random game
+ * done Create a way to generate a random game
  */
 open class StudentBattleshipOpponent
 constructor(override val rows: Int, override val columns: Int, override var ships: List<Ship>) : BattleshipOpponent {
@@ -27,8 +27,8 @@ constructor(override val rows: Int, override val columns: Int, override var ship
     /**
      * Determine whether there is a ship at the given coordinate. If so, provide the shipInfo (index+ship)
      * otherwise `null`.
-     * TODO("find which ship is at the coordinate. You can either search through the ships or look it up in a precalculated matrix")
      */
+
     override fun shipAt(column: Int, row: Int): ShipInfo<StudentShip>? {
         val targetCoord = Coordinate(column, row)
         var out: ShipInfo<StudentShip>? = null
