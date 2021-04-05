@@ -1,8 +1,6 @@
 package org.example.student.battleshipgame
 
 import uk.ac.bournemouth.ap.battleshiplib.Ship
-import uk.ac.bournemouth.ap.battleshiplib.forEachIndex
-import uk.ac.bournemouth.ap.battleshiplib.mapIndices
 import uk.ac.bournemouth.ap.lib.matrix.ext.Coordinate
 
 /** A simple implementation of ship. You could change this if you want to, or add functionality.*/
@@ -20,9 +18,6 @@ open class StudentShip(override val top: Int, override val left: Int, override v
     fun getCoords(): List<Coordinate>{
         val x = this.columnIndices
         val y = this.rowIndices
-
-        println("cols " + x.toString())
-        println("rows " + y.toString())
 
         var listOut: List<Coordinate> = mutableListOf()
 

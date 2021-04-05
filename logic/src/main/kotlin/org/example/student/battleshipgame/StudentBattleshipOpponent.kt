@@ -4,6 +4,7 @@ import uk.ac.bournemouth.ap.battleshiplib.BattleshipOpponent
 import uk.ac.bournemouth.ap.battleshiplib.BattleshipOpponent.ShipInfo
 import uk.ac.bournemouth.ap.battleshiplib.Ship
 import uk.ac.bournemouth.ap.lib.matrix.MutableBooleanMatrix
+import uk.ac.bournemouth.ap.lib.matrix.ext.Coordinate
 import kotlin.random.Random
 
 /**
@@ -20,34 +21,59 @@ constructor(override val rows: Int, override val columns: Int, override var ship
 
         println("Generate random opponent")
         ships = randShips(random, shipSizes)
+
     }
 
     /**
      * Determine whether there is a ship at the given coordinate. If so, provide the shipInfo (index+ship)
      * otherwise `null`.
+     * TODO("find which ship is at the coordinate. You can either search through the ships or look it up in a precalculated matrix")
      */
     override fun shipAt(column: Int, row: Int): ShipInfo<StudentShip>? {
-        TODO("find which ship is at the coordinate. You can either search through the ships or look it up in a precalculated matrix")
+        val targetCoord = Coordinate(column, row)
+        var out: ShipInfo<StudentShip>? = null
+
+        for (ship in ships) {
+            ship as StudentShip
+
+            if (targetCoord in ship.getCoords()){
+                out = ShipInfo(ships.indexOf(ship), ship)
+            }
+        }
+
+        return out
     }
 
     fun randShips(random: Random, shipSizes: IntArray): List<Ship> {
         var ships: List<Ship> = mutableListOf()
         var newShip: StudentShip
 
-        val occupiedCells: MutableBooleanMatrix = MutableBooleanMatrix(columns, rows) //used to test for overlap
+        val occupiedCells = MutableBooleanMatrix(columns, rows) //used to test for overlap
 
         for (size in shipSizes) {
-            newShip = makeShip(random, size, occupiedCells)
-            for (coord in newShip.getCoords()) {
-                occupiedCells.set(coord.x, coord.y, true)
+            var placed = false
+
+            while (!placed){
+                try {
+                    newShip = makeShip(random, size, occupiedCells)
+                    placed = true
+
+                    for (coord in newShip.getCoords()) {
+                        occupiedCells.set(coord.x, coord.y, true)
+                    }
+
+                    ships = ships + newShip
+                }
+                catch (e: java.lang.Exception){
+                    placed = false
+                }
             }
-            ships += newShip
         }
         return ships
     }
 
     fun makeShip(random: Random, size: Int, cells: MutableBooleanMatrix): StudentShip {
-        var newShip: StudentShip
+        val newShip: StudentShip
         val x: Int = random.nextInt(columns)
         val y: Int = random.nextInt(rows)
 
@@ -58,17 +84,17 @@ constructor(override val rows: Int, override val columns: Int, override var ship
             //place horizontal
             newShip = StudentShip(y, x, y, (x + (size - 1)))
         }
+
         //check bounds
-        if (newShip.top < 0 || newShip.right > columns || newShip.bottom > rows || newShip.left < 0) {
-            println("invalid ship, ship out of bounds")
-            newShip = makeShip(random, size, cells)
+        if (newShip.top < 0 || newShip.right > (cells.width - 1) || newShip.bottom > (cells.height - 1) || newShip.left < 0) {
+            println("out of bounds")
+            throw Exception("invalid ship")
         }
         //check overlapp
         for (coord in newShip.getCoords()){
-
-            if (cells.get(coord.x, coord.y)){
-                println("invalid ship, ship overlaps")
-                newShip = makeShip(random,size,cells)
+            if (cells[coord.x, coord.y]){
+                println("ouverlap")
+                throw Exception("invalid ship")
             }
         }
         return newShip
