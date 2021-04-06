@@ -16,7 +16,34 @@ import kotlin.random.Random
  * done Create a way to generate a random game
  */
 open class StudentBattleshipOpponent
-constructor(override val rows: Int, override val columns: Int, override var ships: List<Ship>) : BattleshipOpponent {
+constructor(override val rows: Int, override val columns: Int, override var ships: List<Ship>): BattleshipOpponent {
+    init {
+        for (ship in ships){
+
+            //check bounds
+            if (ship.top < 0 || ship.bottom > (rows - 1) || ship.left < 0 || ship.right > (columns - 1)){
+                throw Exception("Invalid ship, out of bounds")
+            }
+
+            //check overlap
+            var otherShips = ships.minusElement(ship)
+            val space = MutableBooleanMatrix(columns, rows) //used to test for overlap
+
+            for (_ship in otherShips){
+                _ship as StudentShip
+
+                for (coord in _ship.getCoords()){
+                    space[coord.x,coord.y] = true
+                }
+            }
+
+            for (coord in (ship as StudentShip).getCoords()){
+                if (space[coord.x, coord.y]){
+                    throw Exception("invalid ship, ships overlap")
+                }
+            }
+        }
+    }
     constructor(rows: Int, columns: Int, shipSizes: IntArray, random: Random) : this(rows, columns, ships = mutableListOf()) {
 
         println("Generate random opponent")
@@ -59,7 +86,7 @@ constructor(override val rows: Int, override val columns: Int, override var ship
                     placed = true
 
                     for (coord in newShip.getCoords()) {
-                        occupiedCells.set(coord.x, coord.y, true)
+                        occupiedCells[coord.x, coord.y] = true
                     }
 
                     ships = ships + newShip
@@ -87,14 +114,12 @@ constructor(override val rows: Int, override val columns: Int, override var ship
 
         //check bounds
         if (newShip.top < 0 || newShip.right > (cells.width - 1) || newShip.bottom > (cells.height - 1) || newShip.left < 0) {
-            println("out of bounds")
-            throw Exception("invalid ship")
+            throw Exception("invalid ship, ship out of bounds")
         }
         //check overlapp
         for (coord in newShip.getCoords()){
             if (cells[coord.x, coord.y]){
-                println("ouverlap")
-                throw Exception("invalid ship")
+                throw Exception("invalid ship, ships overlap")
             }
         }
         return newShip
