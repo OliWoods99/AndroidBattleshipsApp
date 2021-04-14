@@ -4,7 +4,7 @@ import uk.ac.bournemouth.ap.battleshiplib.Ship
 import uk.ac.bournemouth.ap.lib.matrix.ext.Coordinate
 
 /** A simple implementation of ship. You could change this if you want to, or add functionality.*/
-open class StudentShip(override val top: Int, override val left: Int, override val bottom: Int, override val right: Int): Ship {
+open class StudentShip(override val top: Int, override val left: Int, override val bottom: Int, override val right: Int): Ship{
     init {
         //check for inverted dimensions
         if (this.left > this.right || this.top > this.bottom){

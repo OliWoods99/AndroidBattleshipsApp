@@ -98,7 +98,7 @@ open class StudentBattleshipGrid protected constructor(
     /**
      * The get operator allows retrieving the guesses at a location. You probably want to just look
      * the value up from a property you create (of type `MutableMatrix<GuessCell>`)
-     * TODO("Look up the value from state")
+     * done("Look up the value from state")
      */
     override operator fun get(column: Int, row: Int): GuessCell = guesses[column,row]
 
