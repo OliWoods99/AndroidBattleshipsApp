@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Battleships</string>
+    <string name="button_text">Place</string>
+    <string name="play_easy">Play</string>
 </resources>

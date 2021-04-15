@@ -4,6 +4,7 @@ package uk.ac.bournemouth.ap.battleships
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Color.GREEN
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -34,6 +35,10 @@ class PlaceShipView : View {
         color = Color.BLACK
     }
     private val shipPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = Color.BLACK
+    }
+    private val placedPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.BLACK
     }
@@ -71,6 +76,19 @@ class PlaceShipView : View {
                 }
                 else{
                     cellColour = gridPaint
+                }
+
+                for(i in 0 until placedShips!!.size step 4){
+                    val top: Int = placedShips[i]
+                    val bottom: Int = placedShips[i+1]
+                    val left: Int = placedShips[i+2]
+                    val right: Int = placedShips[i+3]
+
+                    if (col in left..right){
+                        if (row in top..bottom){
+                            cellColour = placedPaint
+                        }
+                    }
                 }
 
                 canvas!!.drawRect(cellX, cellY, (cellX + cellSize), (cellY + cellSize), cellColour)

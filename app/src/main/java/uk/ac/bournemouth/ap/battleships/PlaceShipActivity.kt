@@ -4,13 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import uk.ac.bournemouth.ap.battleshiplib.BattleshipGrid
 
-var sizes: MutableList<Int> = mutableListOf(2,3,4)
+var sizes = BattleshipGrid.DEFAULT_SHIP_SIZES
 var count = 0
 var currentShip: IntArray = intArrayOf()
+var placedShips: IntArray = intArrayOf()
 
 class PlaceShipActivity : AppCompatActivity() {
-    private var placedShips: IntArray = intArrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

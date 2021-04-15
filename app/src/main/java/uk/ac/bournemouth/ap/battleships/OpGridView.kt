@@ -105,10 +105,6 @@ class OpGridView : View {
         catch (e: Exception){
             println("cell already guessed")
         }
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
         invalidate()
-        return super.onTouchEvent(event)
     }
 }

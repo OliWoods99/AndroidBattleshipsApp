@@ -7,11 +7,12 @@
     tools:context=".MenuActivity">
 
     <Button
-        android:onClick="setupGame"
         android:id="@+id/playButton"
         android:layout_width="179dp"
         android:layout_height="86dp"
+        android:onClick="setupGame"
         android:text="Play"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
