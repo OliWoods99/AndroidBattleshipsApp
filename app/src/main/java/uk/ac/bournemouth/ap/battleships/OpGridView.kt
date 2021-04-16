@@ -11,6 +11,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.GestureDetectorCompat
+import org.example.student.battleshipgame.AI
 import org.example.student.battleshipgame.StudentBattleshipGame
 import org.example.student.battleshipgame.StudentBattleshipGrid
 import org.example.student.battleshipgame.StudentBattleshipOpponent
@@ -29,6 +30,9 @@ class OpGridView : View {
     val cols = player!!.columns
     val rows = player!!.rows
     var cellSize: Float = 0f
+
+    /** instantiate AI class **/
+    val ai = AI("hord")
 
     /** instantiate listners **/
     private val listener: BattleshipGrid.BattleshipGridListener =
@@ -99,7 +103,8 @@ class OpGridView : View {
         try {
             if(!playerTurn){
                 playerTurn = true
-                playerGrid!!.shootAt(Random.nextInt(cols), Random.nextInt(rows))
+                //playerGrid!!.shootAt(Random.nextInt(cols), Random.nextInt(rows))
+                ai.shootCell(playerGrid!!)
             }
         }
         catch (e: Exception){

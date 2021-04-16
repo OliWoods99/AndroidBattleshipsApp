@@ -9,6 +9,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.GestureDetectorCompat
+import org.example.student.battleshipgame.AI
 import org.example.student.battleshipgame.StudentBattleshipGame
 import org.example.student.battleshipgame.StudentBattleshipGrid
 import org.example.student.battleshipgame.StudentBattleshipOpponent

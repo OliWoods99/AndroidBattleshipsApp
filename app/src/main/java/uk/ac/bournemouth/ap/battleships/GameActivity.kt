@@ -37,7 +37,7 @@ class GameActivity : AppCompatActivity() {
             playerShips += StudentShip(top,left,bottom,right)
         }
 
-        opponent = StudentBattleshipOpponent(10,10, intArrayOf(2,3,4) , Random)
+        opponent = StudentBattleshipOpponent(10,10, BattleshipGrid.DEFAULT_SHIP_SIZES , Random)
         player = StudentBattleshipOpponent(10,10, playerShips)
 
         opGrid = StudentBattleshipGrid(opponent as StudentBattleshipOpponent)
