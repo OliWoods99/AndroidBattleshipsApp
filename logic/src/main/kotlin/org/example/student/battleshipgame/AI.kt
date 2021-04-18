@@ -8,10 +8,10 @@ import kotlin.random.Random
 
 class AI(val difficulty: String) {
     var foundShip = false
-    var firstHit = Coordinate(-1,-1)
     var lastHit = Coordinate(-1,-1)
-    var nextHit = Coordinate(-1, -1)
-    var counter = 0 //useed to check if the ai has boxed itself in with guessed cells
+    var nextHit: Int? = null
+    var stuckCounter = 0 //useed to check if the ai has boxed itself in with guessed cells
+    var counter = 0
 
      fun shootCell(grid: BattleshipGrid){
 
@@ -37,13 +37,14 @@ class AI(val difficulty: String) {
                 var foundUnset = false
                 while (!foundUnset){
                     try {
+                        //val cols = grid.columns.takeIf { it % 2 == 0}
+                        //val rows = grid.rows.takeIf { it % 2 == 0 }
                         val x = Random.nextInt(grid.columns)
                         val y = Random.nextInt(grid.rows)
 
                         if(grid.shootAt(x,y) !== GuessResult.MISS){
                             foundShip = true //flag to move from search to target
                             lastHit = Coordinate(x,y)
-                            firstHit = Coordinate(x,y)
                         }
 
                         foundUnset = true
@@ -65,36 +66,43 @@ class AI(val difficulty: String) {
                                 Coordinate(lastHit.x, lastHit.y + 1),
                                 Coordinate(lastHit.x, lastHit.y - 1)
                         )
-
+                        var target: Coordinate? = null
                         val i = Random.nextInt(4)
-                        val target = moves[i]
+
+                        if (nextHit != null){
+                            target = moves[nextHit!!]
+                        }
+                        else{
+                            target = moves[i]
+                        }
 
                         val result = grid.shootAt(target.x, target.y)
-                        println(result.toString())
 
                         if (result::class == GuessResult.HIT::class){
-                            println("HIT HIT HIT HIT")
                             lastHit = target
-                            nextHit = moves[i]
+                            nextHit = i
+                        }
+                        if (result::class == GuessResult.MISS::class){
+                            nextHit = null
                         }
                         if(result::class == GuessResult.SUNK::class){
                             foundShip = false
-                            println("SUNK SUNK SUNK SUNK")
-
+                            nextHit = null
                         }
                         foundUnset = true
                     }
                     catch (e: Exception){
                         println("cell guessed")
-                        counter += 1
-
-                        if (counter > 10){
+                        println(stuckCounter)
+                        stuckCounter += 1
+                        if (stuckCounter > 6){
                             foundShip = false
-                            counter = 0
+                            nextHit = null
+                            foundUnset = true
+                            stuckCounter = 0
                         }
                     }
                 }
-
             }
         }
     }

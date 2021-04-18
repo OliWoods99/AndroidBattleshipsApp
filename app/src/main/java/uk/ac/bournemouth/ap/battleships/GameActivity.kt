@@ -45,4 +45,12 @@ class GameActivity : AppCompatActivity() {
 
         setContentView(R.layout.game_layout)
     }
+    fun endGame(winner: String){
+        if(winner == "player"){
+
+        }
+        else{
+
+        }
+    }
 }
