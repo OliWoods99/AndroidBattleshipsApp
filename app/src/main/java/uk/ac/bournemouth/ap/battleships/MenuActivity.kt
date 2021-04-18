@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.example.student.battleshipgame.StudentBattleshipOpponent
 import kotlin.random.Random
 
+var difficulty: String =""
 
 class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,13 @@ class MenuActivity : AppCompatActivity() {
     }
     fun setupGame(view: View) {
         val intent = Intent(this, PlaceShipActivity::class.java)
+        difficulty = "easy"
+        startActivity(intent)
+    }
+
+    fun setupGameHard(view: View) {
+        val intent = Intent(this, PlaceShipActivity::class.java)
+        difficulty = "hard"
         startActivity(intent)
     }
 }

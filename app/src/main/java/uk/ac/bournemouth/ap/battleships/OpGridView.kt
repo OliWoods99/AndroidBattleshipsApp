@@ -32,7 +32,7 @@ class OpGridView : View {
     var cellSize: Float = 0f
 
     /** instantiate AI class **/
-    val ai = AI("hord")
+    val ai = AI(difficulty)
 
     /** instantiate listners **/
     private val listener: BattleshipGrid.BattleshipGridListener =

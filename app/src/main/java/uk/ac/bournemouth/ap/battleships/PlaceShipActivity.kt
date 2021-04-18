@@ -15,6 +15,7 @@ class PlaceShipActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.sample_place_ship_view)
     }
 
