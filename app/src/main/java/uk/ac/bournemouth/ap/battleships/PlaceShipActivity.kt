@@ -14,7 +14,11 @@ var placedShips: IntArray = intArrayOf()
 class PlaceShipActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(null)
+        sizes = BattleshipGrid.DEFAULT_SHIP_SIZES
+        count = 0
+        currentShip = intArrayOf()
+        placedShips = intArrayOf()
 
         setContentView(R.layout.sample_place_ship_view)
     }
