@@ -1,6 +1,7 @@
 package uk.ac.bournemouth.ap.battleships 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,6 +9,7 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GestureDetectorCompat
 import org.example.student.battleshipgame.AI
 import org.example.student.battleshipgame.StudentBattleshipGame
@@ -95,6 +97,13 @@ class PlayerGridView : View {
                 if(playerTurn){
                     playerTurn = false
                     opGrid!!.shootAt(getCol(), getRow())
+
+                    if(opGrid!!.shipsSunk.all { it }){
+                        win = "CONGRATULATIONS YOU WIN!"
+
+                        val intent = Intent(context, endGameScreen::class.java)
+                        context.startActivity(intent)
+                    }
                 }
             }
             catch (e: Exception){

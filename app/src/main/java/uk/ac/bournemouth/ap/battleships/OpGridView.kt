@@ -1,6 +1,7 @@
 package uk.ac.bournemouth.ap.battleships
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -103,8 +104,16 @@ class OpGridView : View {
         try {
             if(!playerTurn){
                 playerTurn = true
-                //playerGrid!!.shootAt(Random.nextInt(cols), Random.nextInt(rows))
+
                 ai.shootCell(playerGrid!!)
+
+                if(playerGrid!!.shipsSunk.all { it }){
+                    win = "UNLUCKY COMPUTER WINS"
+
+                    val intent = Intent(context, endGameScreen::class.java)
+                    context.startActivity(intent)
+                }
+
             }
         }
         catch (e: Exception){

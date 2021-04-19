@@ -3,4 +3,7 @@
     <string name="button_text">Place</string>
     <string name="play_easy">Easy</string>
     <string name="play_hard">Hard</string>
+    <string name="play_again">Play Again</string>
+    <string name="end_text"></string>
+
 </resources>
